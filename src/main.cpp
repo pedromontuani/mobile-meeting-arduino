@@ -43,7 +43,7 @@ void waitForInitialInput() {
 }
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     screen = new ScreenController();
     genius = new GeniusController(purpleLed, blueLed, yellowLed, greenLed,
@@ -51,7 +51,7 @@ void setup() {
                                   greenButton, *screen);
 }
 
-[[noreturn]] void loop() {
+void loop() {
     genius->turnLedsOn();
 
     printInitialMsg();
@@ -62,6 +62,7 @@ void setup() {
     while (genius->play()) {
         delay(250);
         genius->nextLevel();
+        delay(500);
     }
 
     if (genius->hasWon()) {
