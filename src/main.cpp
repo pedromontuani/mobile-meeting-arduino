@@ -52,7 +52,7 @@ void setup() {
 }
 
 void loop() {
-    genius->turnLedsOn();
+    genius->idle();
 
     printInitialMsg();
     waitForInitialInput();

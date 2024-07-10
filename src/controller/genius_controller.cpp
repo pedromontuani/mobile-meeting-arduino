@@ -50,7 +50,7 @@ class GeniusController {
         this->screen->print("Level: " + String(this->currentLevel + 1), 0);
     }
 
-    void blinkLend(LedColor color) const {
+    void blinkLed(LedColor color) const {
         const LedController *led = nullptr;
 
         switch (color) {
@@ -82,8 +82,22 @@ class GeniusController {
         this->turnLedsOff();
 
         for (byte i = 0; i <= this->currentLevel; i++) {
-            blinkLend(this->sequence[i]);
+            blinkLed(this->sequence[i]);
         }
+    }
+
+    void turnLedsOff() const {
+        this->purpleLed->turnOff();
+        this->blueLed->turnOff();
+        this->yellowLed->turnOff();
+        this->greenLed->turnOff();
+    }
+
+    void turnLedsOn() const {
+        this->purpleLed->turnOn();
+        this->blueLed->turnOn();
+        this->yellowLed->turnOn();
+        this->greenLed->turnOn();
     }
 
     LedColor getPressedButton() const {
@@ -143,18 +157,8 @@ class GeniusController {
         this->displayCurrentLevel();
     }
 
-    void turnLedsOff() const {
-        this->purpleLed->turnOff();
-        this->blueLed->turnOff();
-        this->yellowLed->turnOff();
-        this->greenLed->turnOff();
-    }
-
-    void turnLedsOn() const {
-        this->purpleLed->turnOn();
-        this->blueLed->turnOn();
-        this->yellowLed->turnOn();
-        this->greenLed->turnOn();
+    void idle() {
+        this->turnLedsOn();
     }
 
     bool play() {
@@ -168,7 +172,7 @@ class GeniusController {
         for (byte i = 0; i <= this->currentLevel; i++) {
             pressedButton = this->getPressedButton();
 
-            this->blinkLend(pressedButton);
+            this->blinkLed(pressedButton);
 
             if (this->sequence[i] != pressedButton) {
                 return false;
